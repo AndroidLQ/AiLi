@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="203dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:background="@drawable/dialog_bg"
+              android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="fill_parent"
+        android:layout_height="43dp"
+        android:layout_marginLeft="10dip"
+        android:gravity="center_vertical"
+        android:text="温馨提示"
+        android:textColor="#000000"
+        android:textSize="20dp" />
+
+    <View
+        android:id="@+id/dialog_line"
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:background="#eaeaea" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginTop="10dip"
+        android:text="欢迎使用Aili客户端软件，客户端的使用完全免费，在使用过程中会产生流量费，流量费请咨询当地运营商，是否允许建立连接?"
+        android:textColor="#7b7b7b"
+        android:textSize="14dp" />
+
+    <CheckBox
+        android:id="@+id/gprs_checkbox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:button="@drawable/installed_essential_selector"
+        android:text="不再提示"
+        android:textColor="#7b7b7b" />
+
+    <TextView
+        android:id="@+id/setting_market_pic_tip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginTop="5dip"
+        android:text="以加速显示和节省流量"
+        android:textColor="#5b5b5b"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/btn_quit"
+            android:layout_width="120dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="@drawable/gprs_dialog_button_selector"
+            android:text="退出"
+            android:textColor="#525252"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="120dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dip"
+            android:layout_toRightOf="@+id/btn_quit"
+            android:background="@drawable/soft_introduction_install_selector"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btn_3"
+            android:layout_width="120dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dip"
+            android:layout_toRightOf="@+id/btn_ok"
+            android:background="@drawable/soft_introduction_install_selector"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

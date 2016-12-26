@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.lq.p2p.lili.view.MyRadioGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_tab_group"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/bottom_color"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <RadioButton
+        android:id="@+id/main_tab_home"
+        style="@style/tab_icon"
+        android:checked="true"
+        android:drawableTop="@drawable/selector_nav_tab_home"
+        android:text="@string/tab_home"/>
+
+    <RadioButton
+        android:id="@+id/main_tab_invest"
+        style="@style/tab_icon"
+        android:drawableTop="@drawable/selector_nav_tab_invest"
+        android:text="@string/tab_invest"/>
+
+    <RadioButton
+        android:id="@+id/main_tab_news"
+        style="@style/tab_icon"
+        android:drawableTop="@drawable/selector_nav_tab_news"
+        android:text="@string/tab_news"/>
+
+    <RadioButton
+        android:id="@+id/main_tab_borrow"
+        style="@style/tab_icon"
+        android:drawableTop="@drawable/selector_nav_tab_borrow"
+        android:text="@string/tab_msg"/>
+</com.android.lq.p2p.lili.view.MyRadioGroup>

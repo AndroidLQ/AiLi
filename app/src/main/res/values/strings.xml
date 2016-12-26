@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Aili</string>
+    <string name="to_main_now">立即进入</string>
+    <string name="t_gprs_txt">欢迎使用AiLi客户端软件，客户端的使用完全免费，在使用过程中会产生流量费，流量费请咨询当地运营商，是否允许建立连接?</string>
+    <string name="t_gprs_txt2">如使用过程中需要使用二维码扫描功能、免费电话功能，客户端会相应地调用您手机的照相功能、通讯录功能。</string>
+    <string name="t_gprs_prompt">不再提示</string>
+
+    <string name="tab_home">首页</string>
+    <string name="tab_invest">理财</string>
+    <string name="tab_msg">我</string>
+    <string name="tab_news">资讯</string>
+
+    <string name="msg_bad_net">点击按钮，再请求一次。</string>
+    <string name="re_obtain">重新获取</string>
+
+</resources>

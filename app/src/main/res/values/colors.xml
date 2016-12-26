@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#FEFEFE</color>
+    <color name="title_bg_color2">#fbfbfb</color>
+    <color name="main_txt_color">#1bbc9b</color>
+
+    <color name="expandList_group_bg_color">#cacaca</color>
+
+    <color name="night_mode_bg_shallow">#3a3b47</color>
+    <color name="main_bg">#f8f8f8</color>
+    <color name="day_mode_name">#343434</color>
+    <color name="night_mode_bg_deep">#2b2b37</color>
+    <color name="main_bg1">#f2f2f2</color>
+
+    <color name="umeng_blue">#0086DC</color>
+
+    <color name="set_title_color">#333333</color>
+    <drawable name="list_selector_press">#eaeaea</drawable>
+    <drawable name="white">#fefefe</drawable>
+
+    <color name="bg_color">#fff3f3f3</color>
+    <color name="bottom_color">#ffffffff</color>
+
+    <color name="common_color">#ffff9900</color>
+    <color name="text_gray_light">#ff999999</color>
+</resources>

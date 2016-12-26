@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="18.6dp"
+    android:paddingRight="18.6dp" >
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:lineSpacingExtra="5dp"
+        android:text="@string/t_gprs_txt"
+        android:textColor="#343434"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/message2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:lineSpacingExtra="5dp"
+        android:text="@string/t_gprs_txt2"
+        android:textColor="#535353"
+        android:textSize="12.6dp" />
+
+    <CheckBox
+        android:id="@+id/gprs_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="12dp"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/installed_essential_selector"
+        android:drawablePadding="5dip"
+        android:text="@string/t_gprs_prompt"
+        android:textColor="#343434"
+        android:textSize="12.67dp" />
+
+</LinearLayout>

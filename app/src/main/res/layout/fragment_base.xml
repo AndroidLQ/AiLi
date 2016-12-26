@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+    <!-- 标题栏区域 -->
+    <View
+        android:id="@+id/baseStatusBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.android.lq.p2p.lili.view.ChildTitleView
+        android:id="@+id/baseMarketTitleBarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/baseStatusBarView" />
+
+    <!-- 内容区域 -->
+    <RelativeLayout
+        android:id="@+id/baseCenterView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/baseMarketTitleBarView" >
+    </RelativeLayout>
+
+    <!-- 加载显示view -->
+    <RelativeLayout
+        android:id="@+id/baseLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/baseMarketTitleBarView"
+        android:clickable="true"
+        android:focusable="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <com.android.lq.p2p.lili.view.LoadingNewView8500
+                android:id="@+id/base_view_loading_view"
+                android:layout_width="@dimen/dip60"
+                android:layout_height="@dimen/dip60"
+                android:layout_marginBottom="@dimen/dip5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正在努力加载中..."
+                android:textColor="@android:color/darker_gray" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- 加载错误显示view -->
+    <RelativeLayout
+        android:id="@+id/baseErrorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/baseMarketTitleBarView"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:visibility="gone" >
+    </RelativeLayout>
+
+</RelativeLayout>

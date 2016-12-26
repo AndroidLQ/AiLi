@@ -1,0 +1,1 @@
+package com.android.lq.p2p.lili.base;public class ProjectConfig{    // 去掉强制添加快捷图标    // #ifdef no_shortcut    // # public static final Boolean noshowCut = true;    // #else    public static final Boolean noshowCut = false;}

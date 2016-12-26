@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageView
+        android:id="@+id/loginbg"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@mipmap/app_welcome"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/login_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dip40"
+        android:layout_marginRight="@dimen/dip30"
+        android:background="@drawable/bord_loading_ship_circle"
+        android:paddingBottom="@dimen/dip5"
+        android:paddingLeft="@dimen/dip10"
+        android:paddingRight="@dimen/dip10"
+        android:paddingTop="@dimen/dip5"
+        android:text="跳过"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/loading_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/app_logo"
+        android:visibility="gone" />
+
+</RelativeLayout>
