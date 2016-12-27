@@ -1,5 +1,6 @@
 package com.android.lq.p2p.lili.fragment;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -30,6 +31,11 @@ public class InvestFragment extends BaseFragment implements OnLoadData ,View.OnC
         titleBarView.setCenterTitle("理财");
         titleBarView.setRightText("理财分类");
         titleBarView.setLightViewVisibility();
+
+    }
+
+    @Override
+    protected void processLogic(Bundle savedInstanceState) {
 
     }
 

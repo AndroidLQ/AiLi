@@ -26,4 +26,5 @@
 
     <color name="common_color">#ffff9900</color>
     <color name="text_gray_light">#ff999999</color>
+    <color name="text_gray_normal">#ff737373</color>
 </resources>

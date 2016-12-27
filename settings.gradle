@@ -1,2 +1,2 @@
-include ':app', ':convenientbanner'
+include ':app', ':convenientbanner', ':LRecyclerview_library', ':BGAdatper_library'
 include ':viewpagerindicatorlibrary'

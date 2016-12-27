@@ -9,8 +9,10 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.android.lq.p2p.lili.ui.NetErrorDialogActivity;
 
@@ -168,6 +170,23 @@ public class Util {
         {
             return 0;
         }
+    }
+
+    /**
+     * @Author: kobe
+     * @CreteDate: 2015-4-1 下午6:25:29
+     * @Title:
+     * @Description:获取屏幕宽度
+     * @ModifiedBy:
+     * @param context
+     * @return
+     */
+    public static int getScreenPiexWidth(Context context)
+    {
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        manager.getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
     }
 
 }

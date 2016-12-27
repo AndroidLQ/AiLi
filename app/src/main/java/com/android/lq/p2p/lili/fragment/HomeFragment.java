@@ -3,17 +3,21 @@ package com.android.lq.p2p.lili.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import com.android.lq.p2p.lili.R;
+import com.android.lq.p2p.lili.adapter.InvestAdapter;
+import com.android.lq.p2p.lili.adapter.MyRecycerViewAdapter;
 import com.android.lq.p2p.lili.base.BaseFragment;
 import com.android.lq.p2p.lili.base.URL;
 import com.android.lq.p2p.lili.listener.OnLoadData;
 import com.android.lq.p2p.lili.model.InvestBean;
+import com.android.lq.p2p.lili.model.InvestGirdModel;
 import com.android.lq.p2p.lili.net.okhttp.HttpRequest;
 import com.android.lq.p2p.lili.net.okhttp.InvestNet;
 import com.android.lq.p2p.lili.net.request.xutils.IRequestCallback;
@@ -21,16 +25,18 @@ import com.android.lq.p2p.lili.net.request.xutils.IRequestManager;
 import com.android.lq.p2p.lili.net.request.xutils.XutilRequestManager;
 import com.android.lq.p2p.lili.ui.WebViewActivity;
 import com.android.lq.p2p.lili.util.GsonImpl;
+import com.android.lq.p2p.lili.util.Util;
 import com.android.lq.p2p.lili.view.NetworkImageHolderView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.squareup.okhttp.Request;
+import com.github.jdsjlzx.interfaces.OnItemLongClickListener;
 
 import org.xutils.common.Callback;
 
@@ -42,7 +48,7 @@ import java.util.List;
  * Created by a on 2016/12/23.
  */
 
-public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.OnPageChangeListener, OnItemClickListener {
+public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.OnPageChangeListener, com.bigkoo.convenientbanner.listener.OnItemClickListener, com.github.jdsjlzx.interfaces.OnItemClickListener, OnItemLongClickListener {
 
     private String TAG = this.getClass().getSimpleName().toString();
 
@@ -54,6 +60,13 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
     /** 加载广告头数据 */
     private final int LOAD_INVERTADS_CACHE_DATA = 0;
 
+    private RecyclerView recyclerView;
+    private ArrayList<InvestGirdModel> datas = new ArrayList<>();
+    private String title[] = new String[]{"账户信息", "充值", "提现"};
+    private int imageId[] = new int[]{R.mipmap.icon_zhanghuxinxi2, R.mipmap.icon_yinhangkaguanli2,R.mipmap.icon_zijinjilu2};
+    private InvestAdapter investAdapter;
+    private MyRecycerViewAdapter myRecycerViewAdapter;
+
 
 
     @Override
@@ -63,6 +76,7 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
         if(savedInstanceState == null){
             setLoadDataOnce(false);
         }
+
     }
 
     @Override
@@ -70,12 +84,56 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
         setCenterView(R.layout.fragment_home);
         setTitleBarViewVisibility(false);
         iRequestManager = XutilRequestManager.getInstance();
+
         convenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
+
+        //初始化
+        initDatas();
+        recyclerView = (RecyclerView) view.findViewById(R.id.invest_recyclerview);
+        int itemWidth = Util.getScreenPiexWidth(getActivity()) / 4;
+        myRecycerViewAdapter = new MyRecycerViewAdapter(recyclerView,itemWidth);
+
+
+//        LinearLayoutManager gm = new LinearLayoutManager(getActivity());
+//        gm.setOrientation(LinearLayoutManager.HORIZONTAL);//默认LinearLayout.VERTICAL
+//        recyclerView.setLayoutManager(gm);
+//
+//        investAdapter = new InvestAdapter(getActivity(), datas);
+//        LRecyclerViewAdapter lRecyclerViewAdapter = new LRecyclerViewAdapter(investAdapter);
+//        recyclerView.setAdapter(lRecyclerViewAdapter);
+//
+//        //允许下拉刷新
+//        recyclerView.setPullRefreshEnabled(false);
+//        //进行监听
+//        lRecyclerViewAdapter.setOnItemClickListener(this);
+//        lRecyclerViewAdapter.setOnItemLongClickListener(this);
 
         //加载数据
         loadingData = true;
         doLoadData(LOAD_INVERTADS_CACHE_DATA);
     }
+
+    public void initDatas() {
+        datas = new ArrayList<>();
+        InvestGirdModel investGirdModel = null;
+        for (int i = 0; i < title.length; i++) {
+            investGirdModel = new InvestGirdModel();
+            investGirdModel.setImageId(imageId[i]);
+            investGirdModel.setTitle(title[i]);
+            datas.add(investGirdModel);
+        }
+        //最后一个
+        addEndItem();
+    }
+
+    public void addEndItem() {
+        //最后一个
+        InvestGirdModel investGirdModel = new InvestGirdModel();
+        investGirdModel.setImageId(R.mipmap.small_add);
+        investGirdModel.setTitle("添加");
+        datas.add(investGirdModel);
+    }
+
 
     private void init() {
         Log.i(TAG, "HomeFragment--init");
@@ -231,7 +289,31 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
     @Override
     protected void tryAgain() {
         super.tryAgain();
+        setCenterViewLayoutVisibity(false);
         doLoadData(LOAD_INVERTADS_CACHE_DATA);
+    }
+
+    @Override
+    protected void processLogic(Bundle savedInstanceState) {
+
+        // 测试 GridLayoutManager
+//          recyclerView.setLayoutManager(getGridLayoutManager());
+        // 测试 LinearLayoutManager
+        recyclerView.setLayoutManager(getLinearLayoutManager());
+        // 测试没有 Header 和 Footer 的情况
+        recyclerView.setAdapter(myRecycerViewAdapter);
+
+        myRecycerViewAdapter.setData(datas);
+    }
+
+    private RecyclerView.LayoutManager getLinearLayoutManager() {
+        return new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+    }
+
+    private RecyclerView.LayoutManager getGridLayoutManager() {
+        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
+        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        return layoutManager;
     }
 
     @Override
@@ -285,6 +367,8 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
                         loadingNewView1.stop();
                     }
 
+                    setCenterViewLayoutVisibity(true);
+
                     loadingView.setVisibility(View.GONE);
 
                 }else{
@@ -298,4 +382,13 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
     }
 
 
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+
+    }
 }

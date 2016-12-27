@@ -1,5 +1,6 @@
 package com.android.lq.p2p.lili.fragment;
 
+import android.os.Bundle;
 import android.widget.RelativeLayout;
 
 import com.android.lq.p2p.lili.R;
@@ -14,6 +15,11 @@ public class PersonalCenterFragment extends BaseFragment implements OnLoadData {
     @Override
     protected void initView(RelativeLayout view) {
         setCenterView(R.layout.fragment_personal_center);
+    }
+
+    @Override
+    protected void processLogic(Bundle savedInstanceState) {
+
     }
 
     @Override

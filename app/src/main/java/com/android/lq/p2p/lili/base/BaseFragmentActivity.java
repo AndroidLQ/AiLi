@@ -4,6 +4,7 @@ package com.android.lq.p2p.lili.base;
  * Created by a on 2016/12/23.
  */
 
+import android.app.Activity;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;

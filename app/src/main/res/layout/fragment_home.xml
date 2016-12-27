@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/convenientBanner"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:canLoop="true"/>
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-</RelativeLayout>
+
+            <com.bigkoo.convenientbanner.ConvenientBanner
+                android:id="@+id/convenientBanner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:canLoop="true"/>
+
+            <TextView
+                android:id="@+id/newpreview"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/convenientBanner"
+                android:layout_marginBottom="5.0dip"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/sound"
+                android:drawablePadding="10.0dip"
+                android:drawableRight="@mipmap/icon_down_orange"
+                android:gravity="center|left"
+                android:paddingBottom="5.0dip"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="15.0dip"
+                android:paddingTop="5.0dip"
+                android:text="新标预告"
+                android:textColor="@color/text_gray_normal"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip15"
+                android:background="@color/bg_color"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/invest_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

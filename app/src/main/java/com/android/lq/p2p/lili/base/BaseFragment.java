@@ -4,6 +4,7 @@ package com.android.lq.p2p.lili.base;
  * Created by a on 2016/12/23.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.lq.p2p.lili.R;
+import com.android.lq.p2p.lili.ui.HomeActivity;
 import com.android.lq.p2p.lili.util.MarketAsyncTask;
 import com.android.lq.p2p.lili.util.Util;
 import com.android.lq.p2p.lili.view.ChildTitleView;
@@ -46,6 +48,15 @@ public abstract class BaseFragment extends Fragment {
      * 子Fragment是否需要Loading图
      */
     protected boolean isHaveLoadingView = true;
+
+    private HomeActivity mActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = (HomeActivity) activity;
+    }
+
 
     public void setLoadDataOnce(boolean isLoadDataOnce)
     {
@@ -80,6 +91,9 @@ public abstract class BaseFragment extends Fragment {
                 .findViewById(R.id.baseMarketTitleBarView);
         initView(baseView);
 
+        setListener();
+        processLogic(savedInstanceState);
+
         if (!isHaveLoadingView) {
             loadingNewView1.stop();
             loadingNewView1.setLoading(false);
@@ -100,6 +114,16 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract void initView(RelativeLayout view);
 
+
+    protected void setCenterViewLayoutVisibity(boolean isvisable){
+
+        if(isvisable){
+            centerViewLayout.setVisibility(View.VISIBLE);
+        }else{
+            centerViewLayout.setVisibility(View.GONE);
+        }
+
+    }
 
     /**
      * 是否显示标题
@@ -241,6 +265,20 @@ public abstract class BaseFragment extends Fragment {
     protected void clickEvent() {
         Toast.makeText(getActivity(), "点击其他区域调用方法", Toast.LENGTH_SHORT).show();
     }
+
+
+    /**
+     * 给View控件添加事件监听器
+     */
+    protected void setListener() {
+    }
+
+    /**
+     * 处理业务逻辑，状态恢复等操作
+     *
+     * @param savedInstanceState
+     */
+    protected abstract void processLogic(Bundle savedInstanceState);
 
 
     protected boolean loadingData = false;
