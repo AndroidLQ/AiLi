@@ -32,6 +32,7 @@
         </activity>
         <activity android:name=".ui.WebViewActivity">
         </activity>
+        <activity android:name=".ui.AddNewFeaturesActivity" />
     </application>
 
 </manifest>

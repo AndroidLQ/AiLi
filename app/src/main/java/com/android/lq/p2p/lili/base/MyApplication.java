@@ -14,6 +14,7 @@ public class MyApplication extends Application
     public void onCreate() {
         super.onCreate();
         x.Ext.init(this);
+        Constants.init(getApplicationContext());
 
     }
 }

@@ -1,11 +1,9 @@
 package com.android.lq.p2p.lili.net.okhttp;
 
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.android.lq.p2p.lili.model.InvestBean;
 import com.android.lq.p2p.lili.util.GsonImpl;
-import com.google.gson.Gson;
 
 import org.json.JSONObject;
 

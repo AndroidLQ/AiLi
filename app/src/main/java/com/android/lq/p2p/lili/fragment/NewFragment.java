@@ -36,6 +36,7 @@ public class NewFragment extends BaseFragment implements OnLoadData {
 
     }
 
+    //点击RadioButton调用
     @Override
     public void onLoadData() {
 

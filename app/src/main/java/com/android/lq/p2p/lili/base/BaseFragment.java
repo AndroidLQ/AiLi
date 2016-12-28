@@ -6,6 +6,7 @@ package com.android.lq.p2p.lili.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,12 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.lq.p2p.lili.R;
 import com.android.lq.p2p.lili.ui.HomeActivity;
+import com.android.lq.p2p.lili.util.LaunchActivityUtils;
 import com.android.lq.p2p.lili.util.MarketAsyncTask;
 import com.android.lq.p2p.lili.util.Util;
 import com.android.lq.p2p.lili.view.ChildTitleView;
@@ -49,7 +50,7 @@ public abstract class BaseFragment extends Fragment {
      */
     protected boolean isHaveLoadingView = true;
 
-    private HomeActivity mActivity;
+    protected HomeActivity mActivity;
 
     @Override
     public void onAttach(Activity activity) {
@@ -353,4 +354,21 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract void refreshView(boolean initSuccess, Integer... params);
 
+
+    /**
+     * 开启一个Activity
+     *
+     * @param from        从哪个Activity进行跳转
+     * @param to          跳转到哪个Activity
+     * @param intent      意图
+     * @param requestCode 请求码
+     * @param hasResult   是否需要返回的结果(true表示需要返回的结果)
+     */
+    protected void startActivity(Activity from, Class<?> to, Intent intent, int requestCode, boolean hasResult) {
+        if (hasResult) {
+            LaunchActivityUtils.startActivityForResult(from, to, intent, requestCode);
+        } else {
+            LaunchActivityUtils.startActivity(from, to, intent);
+        }
+    }
 }

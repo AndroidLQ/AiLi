@@ -23,6 +23,11 @@ public class MyRecycerViewAdapter extends BGARecyclerViewAdapter<InvestGirdModel
     }
 
     @Override
+    protected void setItemChildListener(BGAViewHolderHelper helper, int viewType) {
+        helper.setItemChildClickListener(R.id.iv_image);
+    }
+
+    @Override
     protected void fillData(BGAViewHolderHelper helper, int position, InvestGirdModel model) {
         //动态设置item的宽度
         helper.getConvertView().setLayoutParams(new ViewGroup.LayoutParams(itemWidth, ViewGroup.LayoutParams.WRAP_CONTENT));

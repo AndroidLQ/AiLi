@@ -2,7 +2,6 @@ package com.android.lq.p2p.lili.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.WebChromeClient;
@@ -27,6 +26,11 @@ public class WebViewActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         web_url = getIntent().getStringExtra(WEB_URL);
+    }
+
+    @Override
+    protected void processLogic(Bundle savedInstanceState) {
+
     }
 
     @Override

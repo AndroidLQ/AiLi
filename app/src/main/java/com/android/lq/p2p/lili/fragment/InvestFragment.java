@@ -25,7 +25,7 @@ public class InvestFragment extends BaseFragment implements OnLoadData ,View.OnC
         titleBarView.setRightViewListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"项目分类",Toast.LENGTH_LONG).show();
+                Toast.makeText(mActivity,"项目分类",Toast.LENGTH_LONG).show();
             }
         });
         titleBarView.setCenterTitle("理财");
@@ -49,6 +49,7 @@ public class InvestFragment extends BaseFragment implements OnLoadData ,View.OnC
 
     }
 
+    //点击RadioButton调用
     @Override
     public void onLoadData() {
         Log.i("HomeFragment","InvestFragment--onLoadData");

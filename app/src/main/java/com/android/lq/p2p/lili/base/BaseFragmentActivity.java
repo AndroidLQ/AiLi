@@ -4,13 +4,12 @@ package com.android.lq.p2p.lili.base;
  * Created by a on 2016/12/23.
  */
 
-import android.app.Activity;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;

@@ -1,9 +1,7 @@
 package com.android.lq.p2p.lili.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
@@ -17,6 +15,9 @@ import com.android.lq.p2p.lili.adapter.GuideAdapter;
 import com.android.lq.p2p.lili.base.BaseActivity;
 import com.android.lq.p2p.lili.control.AiLiPreferences;
 import com.viewpagerindicator.CirclePageIndicator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuideActivity extends BaseActivity {
 
@@ -43,6 +44,11 @@ public class GuideActivity extends BaseActivity {
     /** 按钮距离底部的高度 */
     private int btnBottomMargin = 110;
     private AiLiPreferences pref;
+
+    @Override
+    protected void processLogic(Bundle savedInstanceState) {
+
+    }
 
     @Override
     protected void initCenterView() {

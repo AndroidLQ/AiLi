@@ -13,4 +13,7 @@
     <string name="msg_bad_net">点击按钮，再请求一次。</string>
     <string name="re_obtain">重新获取</string>
 
+    <string name="shortcut_financing">理财子账户</string>
+    <string name="shortcut_account">账户管理</string>
+
 </resources>

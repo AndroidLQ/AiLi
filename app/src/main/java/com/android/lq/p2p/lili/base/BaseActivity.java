@@ -2,6 +2,7 @@ package com.android.lq.p2p.lili.base;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 
 import com.android.lq.p2p.lili.R;
+import com.android.lq.p2p.lili.util.LaunchActivityUtils;
 import com.android.lq.p2p.lili.util.Util;
 import com.android.lq.p2p.lili.view.ChildTitleView;
 import com.android.lq.p2p.lili.view.LoadingNewView8500;
@@ -58,14 +60,15 @@ public abstract class BaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Util.setStatusBar(this, statusBarLight);
-        initLayout();
+        initLayout(savedInstanceState);
+        AppManager.getAppManager().addActivity(this);
 
     }
 
     /**
      * 初始化试图
      */
-    private void initLayout() {
+    private void initLayout(Bundle savedInstanceState) {
         setContentView(R.layout.activity_base);
         statusbarView = findViewById(R.id.baseStatusBarView);
         if (Build.VERSION.SDK_INT >= 21) {
@@ -83,9 +86,24 @@ public abstract class BaseActivity extends Activity {
         centerViewLayout = (RelativeLayout) findViewById(R.id.baseCenterView);
         titleBarView = (ChildTitleView) findViewById(R.id.baseMarketTitleBarView);
         initCenterView();
+        setListener();
+        processLogic(savedInstanceState);
 
         dayOrNight(true);
     }
+
+    /**
+     * 给View控件添加事件监听器
+     */
+    protected void setListener() {
+    }
+
+    /**
+     * 处理业务逻辑，状态恢复等操作
+     *
+     * @param savedInstanceState
+     */
+    protected abstract void processLogic(Bundle savedInstanceState);
 
 
     /**
@@ -156,8 +174,6 @@ public abstract class BaseActivity extends Activity {
      * @param layoutId
      */
     protected void setCenterView(int layoutId) {
-        // View view = View.inflate(this, layoutId, null);
-        // setCenterView(view);
         View.inflate(this, layoutId, centerViewLayout);
     }
 
@@ -179,6 +195,30 @@ public abstract class BaseActivity extends Activity {
      */
     protected void setCenterView(View view, ViewGroup.LayoutParams params) {
         centerViewLayout.addView(view, params);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getAppManager().finishActivity();
+    }
+
+
+    /**
+     * 开启一个Activity
+     *
+     * @param from        从哪个Activity进行跳转
+     * @param to          跳转到哪个Activity
+     * @param intent      意图
+     * @param requestCode 请求码
+     * @param hasResult   是否需要返回的结果(true表示需要返回的结果)
+     */
+    protected void startActivity(Activity from, Class<?> to, Intent intent, int requestCode, boolean hasResult) {
+        if (hasResult) {
+            LaunchActivityUtils.startActivityForResult(from, to, intent, requestCode);
+        } else {
+            LaunchActivityUtils.startActivity(from, to, intent);
+        }
     }
 
 }

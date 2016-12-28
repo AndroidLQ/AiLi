@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.android.lq.p2p.lili.R;
-import com.android.lq.p2p.lili.adapter.InvestAdapter;
 import com.android.lq.p2p.lili.adapter.MyRecycerViewAdapter;
 import com.android.lq.p2p.lili.base.BaseFragment;
 import com.android.lq.p2p.lili.base.URL;
@@ -23,20 +25,18 @@ import com.android.lq.p2p.lili.net.okhttp.InvestNet;
 import com.android.lq.p2p.lili.net.request.xutils.IRequestCallback;
 import com.android.lq.p2p.lili.net.request.xutils.IRequestManager;
 import com.android.lq.p2p.lili.net.request.xutils.XutilRequestManager;
+import com.android.lq.p2p.lili.ui.AddNewFeaturesActivity;
 import com.android.lq.p2p.lili.ui.WebViewActivity;
 import com.android.lq.p2p.lili.util.GsonImpl;
 import com.android.lq.p2p.lili.util.Util;
 import com.android.lq.p2p.lili.view.NetworkImageHolderView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.github.jdsjlzx.interfaces.OnItemLongClickListener;
 
 import org.xutils.common.Callback;
 
@@ -44,11 +44,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.bingoogolapple.androidcommon.adapter.BGAOnItemChildClickListener;
+import cn.bingoogolapple.androidcommon.adapter.BGAOnRVItemClickListener;
+
 /**
  * Created by a on 2016/12/23.
  */
 
-public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.OnPageChangeListener, com.bigkoo.convenientbanner.listener.OnItemClickListener, com.github.jdsjlzx.interfaces.OnItemClickListener, OnItemLongClickListener {
+public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.OnPageChangeListener, com.bigkoo.convenientbanner.listener.OnItemClickListener,BGAOnItemChildClickListener,BGAOnRVItemClickListener {
 
     private String TAG = this.getClass().getSimpleName().toString();
 
@@ -64,9 +67,7 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
     private ArrayList<InvestGirdModel> datas = new ArrayList<>();
     private String title[] = new String[]{"账户信息", "充值", "提现"};
     private int imageId[] = new int[]{R.mipmap.icon_zhanghuxinxi2, R.mipmap.icon_yinhangkaguanli2,R.mipmap.icon_zijinjilu2};
-    private InvestAdapter investAdapter;
     private MyRecycerViewAdapter myRecycerViewAdapter;
-
 
 
     @Override
@@ -87,27 +88,15 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
 
         convenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
 
+        recyclerView = (RecyclerView) view.findViewById(R.id.invest_recyclerview);
+        int itemWidth = Util.getScreenPiexWidth(mActivity) / 4;
+        myRecycerViewAdapter = new MyRecycerViewAdapter(recyclerView,itemWidth);
+        //设置 item子view监听事件
+//        myRecycerViewAdapter.setOnItemChildClickListener(this);
+        myRecycerViewAdapter.setOnRVItemClickListener(this);
+
         //初始化
         initDatas();
-        recyclerView = (RecyclerView) view.findViewById(R.id.invest_recyclerview);
-        int itemWidth = Util.getScreenPiexWidth(getActivity()) / 4;
-        myRecycerViewAdapter = new MyRecycerViewAdapter(recyclerView,itemWidth);
-
-
-//        LinearLayoutManager gm = new LinearLayoutManager(getActivity());
-//        gm.setOrientation(LinearLayoutManager.HORIZONTAL);//默认LinearLayout.VERTICAL
-//        recyclerView.setLayoutManager(gm);
-//
-//        investAdapter = new InvestAdapter(getActivity(), datas);
-//        LRecyclerViewAdapter lRecyclerViewAdapter = new LRecyclerViewAdapter(investAdapter);
-//        recyclerView.setAdapter(lRecyclerViewAdapter);
-//
-//        //允许下拉刷新
-//        recyclerView.setPullRefreshEnabled(false);
-//        //进行监听
-//        lRecyclerViewAdapter.setOnItemClickListener(this);
-//        lRecyclerViewAdapter.setOnItemLongClickListener(this);
-
         //加载数据
         loadingData = true;
         doLoadData(LOAD_INVERTADS_CACHE_DATA);
@@ -176,54 +165,6 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
         }
     }
 
-
-    private void loadImageURL() {
-        Log.i(TAG, "onLoadData");
-
-        if(loadingView != null){
-            loadingView.setVisibility(View.VISIBLE);
-        }
-        if (loadingNewView1 != null)
-        {
-            loadingNewView1.start();
-        }
-        loadNetImageUrl();
-    }
-
-
-    private void loadNetImageUrl(){
-
-        iRequestManager.get(URL.IVEST_URL, new HashMap<String, String>(), new IRequestCallback<String>() {
-            @Override
-            public void sucess(String o) {
-                if (!TextUtils.isEmpty(o)) {
-                    InvestBean investBean = GsonImpl.get().toObject(o, InvestBean.class);
-                    List<InvestBean.HomeAdsBean> adsList = investBean.getHomeAds();
-                    for (int i = 0; i < adsList.size(); i++) {
-                        networkImages.add(adsList.get(i).getImage_filename());
-                    }
-                }
-
-            }
-
-            @Override
-            public void fialure(Throwable throwable) {
-
-            }
-
-            @Override
-            public void onCancelled(Callback.CancelledException cex) {
-
-            }
-
-            @Override
-            public void finish() {
-
-            }
-        });
-    }
-
-
     //初始化网络图片缓存库
     private void initImageLoader() {
         //网络图片例子,结合常用的图片缓存库UIL,你可以根据自己需求自己换其他网络图片库
@@ -232,7 +173,7 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
                 .cacheInMemory(true).cacheOnDisk(true).build();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                getActivity().getApplicationContext()).defaultDisplayImageOptions(defaultOptions)
+                mActivity.getApplicationContext()).defaultDisplayImageOptions(defaultOptions)
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
@@ -275,10 +216,11 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
 
     @Override
     public void onItemClick(int position) {
-        WebViewActivity.startActivity(getActivity(),investBean.getHomeAds().get(position).getUrl());
+        WebViewActivity.startActivity(mActivity,investBean.getHomeAds().get(position).getUrl());
     }
 
 
+    //点击RadioButton调用
     @Override
     public void onLoadData() {
         Log.i(TAG, "HomeFragment--onLoadData");
@@ -295,11 +237,9 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-
-        // 测试 GridLayoutManager
-//          recyclerView.setLayoutManager(getGridLayoutManager());
         // 测试 LinearLayoutManager
         recyclerView.setLayoutManager(getLinearLayoutManager());
+
         // 测试没有 Header 和 Footer 的情况
         recyclerView.setAdapter(myRecycerViewAdapter);
 
@@ -307,13 +247,7 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
     }
 
     private RecyclerView.LayoutManager getLinearLayoutManager() {
-        return new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-    }
-
-    private RecyclerView.LayoutManager getGridLayoutManager() {
-        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
-        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
-        return layoutManager;
+        return new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
     }
 
     @Override
@@ -323,7 +257,7 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
             case LOAD_INVERTADS_CACHE_DATA:
                 ArrayList<String> mainUrls = new ArrayList<String>();
                 mainUrls.add(URL.IVEST_URL);
-                HttpRequest.init(getActivity().getApplicationContext(), mainUrls);
+                HttpRequest.init(mActivity.getApplicationContext(), mainUrls);
                 investBean = InvestNet.getBannerInfos();
                 if(investBean != null){
                     isSuccess = true;
@@ -381,14 +315,18 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
         isLoadDataOnce = true;
     }
 
-
+    /***************************** recyclerview 监听器开始 ************************************/
     @Override
-    public void onItemClick(View view, int position) {
+    public void onItemChildClick(ViewGroup parent, View childView, int position) {
+        Toast.makeText(mActivity,position+"item 子view监听事件",Toast.LENGTH_LONG).show();
 
     }
 
     @Override
-    public void onItemLongClick(View view, int position) {
-
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if(position == datas.size() - 1){
+            startActivity(mActivity, AddNewFeaturesActivity.class,null,0,false);
+        }
     }
+    /***************************** recyclerview 监听器结束 ************************************/
 }

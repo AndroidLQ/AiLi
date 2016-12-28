@@ -3,8 +3,6 @@ package com.android.lq.p2p.lili.control;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.io.FileInputStream;
-
 /**
  * Created by a on 2016/12/22.
  */
