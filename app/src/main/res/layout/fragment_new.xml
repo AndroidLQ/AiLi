@@ -3,9 +3,55 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text=" i am newfragment"/>
+        android:scrollbars="none"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/find_title_layout"
+                layout="@layout/find_title_layout" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dip30" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp14"
+                android:layout_margin="@dimen/dip6"
+                android:text="热门目的地"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/hot_place_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dip6"
+                android:scrollbars="none"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp14"
+                android:layout_margin="@dimen/dip6"
+                android:text="经典行程"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/classical_journey_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dip6"
+                android:scrollbars="none"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 </RelativeLayout>

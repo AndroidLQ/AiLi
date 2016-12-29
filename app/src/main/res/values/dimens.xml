@@ -63,6 +63,7 @@
     <dimen name="dip10">10dip</dimen>
     <dimen name="dip110">110dip</dimen>
     <dimen name="dip105">105dip</dimen>
+    <dimen name="dip150">150dip</dimen>
     <dimen name="dip137">137dip</dimen>
     <dimen name="dip100">100dip</dimen>
     <dimen name="dip96">96dip</dimen>
@@ -84,6 +85,7 @@
     <dimen name="px2">2px</dimen>
     <dimen name="dp5">5dp</dimen>
     <dimen name="sp14">14sp</dimen>
+    <dimen name="sp50">50sp</dimen>
     <dimen name="sp16">16sp</dimen>
     <dimen name="sp18">18sp</dimen>
     <dimen name="sp11">11sp</dimen>
@@ -101,6 +103,7 @@
     <dimen name="lenjoy_list_verline_height">22dip</dimen>
     <dimen name="lenjoy_detail_img_margin">33dp</dimen>
     <dimen name="lenjoy_detail_img_width">294dp</dimen>
+    <dimen name="dip250">250dp</dimen>
     <dimen name="lenjoy_detail_img_height">368.7dp</dimen>
     <dimen name="fun_item_margin">35dp</dimen>
     <dimen name="fresh_list_group_height">27dp</dimen>

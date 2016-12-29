@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5.0dip"
+        app:cardElevation="5.0dip"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout style="@style/WidthFill">
+
+            <com.android.lq.p2p.lili.view.ProgressWheel
+                android:id="@+id/rateLayout"
+                android:layout_width="@dimen/dip150"
+                android:layout_height="@dimen/dip150"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10.0dip"/>
+
+            <RelativeLayout
+                android:layout_width="@dimen/dip150"
+                android:layout_height="@dimen/dip150"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10.0dip"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/img_right_rate"
+                    style="@style/WrapContent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="18"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="@dimen/sp50"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    style="@style/WrapContent"
+                    android:layout_alignBottom="@+id/img_right_rate"
+                    android:layout_marginBottom="5.0dip"
+                    android:layout_toRightOf="@id/img_right_rate"
+                    android:text="%"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="30.0sp"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/WrapContent"
+                android:layout_alignBottom="@+id/rateLayout"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingLeft="10.0dip">
+
+                <TextView
+                    android:id="@+id/tv_invest_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70.0dip"
+                    android:gravity="center"
+                    android:text="￥500,000"
+                    android:textColor="#ff525252"
+                    android:textSize="@dimen/sp14"/>
+
+                <TextView
+                    android:id="@+id/text_borrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10.0dip"
+                    android:paddingTop="10.0dip"
+                    android:text="借款金额"
+                    android:textColor="#ff949494"
+                    android:textSize="@dimen/sp14"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapContent"
+                android:layout_alignBottom="@id/rateLayout"
+                android:layout_alignParentRight="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingRight="10.0dip">
+
+                <TextView
+                    android:id="@+id/tv_investdate_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="一个月"
+                    android:textColor="#ff525252"
+                    android:textSize="@dimen/sp14"/>
+
+                <TextView
+                    android:id="@+id/text_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10.0dip"
+                    android:paddingTop="10.0dip"
+                    android:text="借款期限"
+                    android:textColor="#ff949494"
+                    android:textSize="@dimen/sp14"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rateLayout"
+                android:layout_marginTop="10.0dip"
+                android:gravity="center"
+                android:text="盈车贷"
+                android:textColor="#ff525252"
+                android:textSize="@dimen/sp18"/>
+
+            <Button
+                android:id="@+id/rightnow_invest"
+                android:layout_width="@dimen/dip250"
+                android:layout_height="40.0dip"
+                android:layout_below="@id/tv_title"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="30.0dip"
+                android:layout_marginTop="10.0dip"
+                android:background="@drawable/selector_button_red"
+                android:text="立即投标"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp18"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_xinshoubiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="-2.0dip"
+            android:layout_marginTop="10.0dip"
+            android:background="@mipmap/icon_freshhand_exclusive"
+            android:visibility="visible"/>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

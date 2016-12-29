@@ -1,6 +1,9 @@
 package com.android.lq.p2p.lili.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.android.lq.p2p.lili.R;
@@ -12,9 +15,18 @@ import com.android.lq.p2p.lili.listener.OnLoadData;
  */
 
 public class PersonalCenterFragment extends BaseFragment implements OnLoadData {
+
+    private FrameLayout fragmentContainer;
+
     @Override
     protected void initView(RelativeLayout view) {
         setCenterView(R.layout.fragment_personal_center);
+        setTitleBarViewVisibility(false);
+        loadingView.setVisibility(View.GONE);
+
+        fragmentContainer = (FrameLayout) view.findViewById(R.id.fragmentContainer);
+        View.inflate(mActivity,R.layout.morelist_layout,fragmentContainer);
+
     }
 
     @Override

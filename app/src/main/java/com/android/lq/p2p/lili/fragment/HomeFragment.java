@@ -14,10 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.lq.p2p.lili.R;
+import com.android.lq.p2p.lili.adapter.InvestBottomRecycerViewAdapter;
 import com.android.lq.p2p.lili.adapter.MyRecycerViewAdapter;
 import com.android.lq.p2p.lili.base.BaseFragment;
+import com.android.lq.p2p.lili.base.Constants;
 import com.android.lq.p2p.lili.base.URL;
 import com.android.lq.p2p.lili.listener.OnLoadData;
+import com.android.lq.p2p.lili.model.AddNewFeaturesModel;
 import com.android.lq.p2p.lili.model.InvestBean;
 import com.android.lq.p2p.lili.model.InvestGirdModel;
 import com.android.lq.p2p.lili.net.okhttp.HttpRequest;
@@ -30,6 +33,7 @@ import com.android.lq.p2p.lili.ui.WebViewActivity;
 import com.android.lq.p2p.lili.util.GsonImpl;
 import com.android.lq.p2p.lili.util.Util;
 import com.android.lq.p2p.lili.view.NetworkImageHolderView;
+import com.android.lq.p2p.lili.view.ProgressWheel;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -46,6 +50,7 @@ import java.util.List;
 
 import cn.bingoogolapple.androidcommon.adapter.BGAOnItemChildClickListener;
 import cn.bingoogolapple.androidcommon.adapter.BGAOnRVItemClickListener;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by a on 2016/12/23.
@@ -64,20 +69,44 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
     private final int LOAD_INVERTADS_CACHE_DATA = 0;
 
     private RecyclerView recyclerView;
+    private RecyclerView bottom_recyclerview;
     private ArrayList<InvestGirdModel> datas = new ArrayList<>();
-    private String title[] = new String[]{"账户信息", "充值", "提现"};
-    private int imageId[] = new int[]{R.mipmap.icon_zhanghuxinxi2, R.mipmap.icon_yinhangkaguanli2,R.mipmap.icon_zijinjilu2};
+    private String title[] = new String[]{"账户信息", "充值", "提现","理财账单","等待满标","投标记录","收款中","债权管理","投标机器人","理财统计","资金记录","账户安全","计算器"};
+    private int imageId[] = new int[]{R.mipmap.icon_account_display, R.mipmap.icon_recharge_display,R.mipmap.icon_tixian_display,R.mipmap.icon_lczd_display,R.mipmap.icon_ddmb_display,R.mipmap.icon_tbjl_display,
+            R.mipmap.icon_skz_display,R.mipmap.icon_zqgl_display,R.mipmap.icon_robot_display,R.mipmap.icon_lctj_display,R.mipmap.icon_capital_record_display,R.mipmap.icon_account_security_display,R.mipmap.icon_cal_display};
+    private String sortTitle[] = new String[]{"zhanghuxinxi","chongzhi","tixian","licaizhangdan","dengdaimanbiao","toubiaojilu","shoukuanzhong","zhaiquanguanli","jiqiren","licaitongji","zijinjilu","zhanghuanquan","jisuanqi"};
     private MyRecycerViewAdapter myRecycerViewAdapter;
+
+    private InvestBottomRecycerViewAdapter investBottomRecycerViewAdapter;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);//注册
         Log.i(TAG,"homefragment#onCreate");
         if(savedInstanceState == null){
             setLoadDataOnce(false);
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);//取消注册
+    }
+
+    /**
+     * 使用onEventMainThread来接收事件，那么不论分发事件在哪个线程运行，接收事件永远在UI线程执行，
+     * 这对于android应用是非常有意义的
+     * @param event
+     */
+    public void onEventMainThread(AddNewFeaturesModel event)
+    {
+        Log.d(TAG, "onEventMainThread-->"+Thread.currentThread().getId());
+        initDatas();
+        myRecycerViewAdapter.setData(datas);
     }
 
     @Override
@@ -95,6 +124,11 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
 //        myRecycerViewAdapter.setOnItemChildClickListener(this);
         myRecycerViewAdapter.setOnRVItemClickListener(this);
 
+
+        //底部recyclerview
+        bottom_recyclerview = (RecyclerView) view.findViewById(R.id.bottom_recyclerview);
+        investBottomRecycerViewAdapter = new InvestBottomRecycerViewAdapter(bottom_recyclerview);
+
         //初始化
         initDatas();
         //加载数据
@@ -103,13 +137,15 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
     }
 
     public void initDatas() {
-        datas = new ArrayList<>();
+        if(datas != null) datas.clear();
         InvestGirdModel investGirdModel = null;
-        for (int i = 0; i < title.length; i++) {
-            investGirdModel = new InvestGirdModel();
-            investGirdModel.setImageId(imageId[i]);
-            investGirdModel.setTitle(title[i]);
-            datas.add(investGirdModel);
+        for(int i = 0; i < sortTitle.length; i++) {
+            if(Constants.readBoolean(sortTitle[i],false)){
+                investGirdModel = new InvestGirdModel();
+                investGirdModel.setImageId(imageId[i]);
+                investGirdModel.setTitle(title[i]);
+                datas.add(investGirdModel);
+            }
         }
         //最后一个
         addEndItem();
@@ -129,6 +165,11 @@ public class HomeFragment extends BaseFragment implements OnLoadData, ViewPager.
         initImageLoader();
         //设置广告头
         initConvenientBanner();
+
+
+        bottom_recyclerview.setLayoutManager(new LinearLayoutManager(mActivity));
+        bottom_recyclerview.setAdapter(investBottomRecycerViewAdapter);
+        investBottomRecycerViewAdapter.setData(investBean.getInvestingBids());
 
         //手动New并且添加到ListView Header的例子
 //        ConvenientBanner mConvenientBanner = new ConvenientBanner(this,false);

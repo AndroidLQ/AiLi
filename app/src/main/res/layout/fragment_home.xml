@@ -3,12 +3,13 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical" >
+              android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,12 +51,18 @@
                 android:id="@+id/invest_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none" />
+                android:scrollbars="none"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dip15"
                 android:background="@color/bg_color"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/bottom_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"/>
 
         </LinearLayout>
     </ScrollView>

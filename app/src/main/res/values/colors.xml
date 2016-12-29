@@ -31,4 +31,6 @@
     <color name="app_bg">#fff2f2f2</color>
     <color name="orange">#ffff9900</color>
 
+    <color name="gray_light_line">#10000000</color>
+
 </resources>

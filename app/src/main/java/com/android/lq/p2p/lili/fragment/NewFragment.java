@@ -19,6 +19,9 @@ public class NewFragment extends BaseFragment implements OnLoadData {
         titleBarView.setCenterTitle("资讯");
         titleBarView.setRightViewVisibility();
         titleBarView.setLightViewVisibility();
+
+
+
     }
 
     @Override

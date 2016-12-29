@@ -17,6 +17,7 @@ import com.android.lq.p2p.lili.R;
 import com.android.lq.p2p.lili.adapter.AddNewFeatuersAdapter;
 import com.android.lq.p2p.lili.base.BaseActivity;
 import com.android.lq.p2p.lili.base.Constants;
+import com.android.lq.p2p.lili.model.AddNewFeaturesModel;
 import com.android.lq.p2p.lili.model.InvestGirdModel;
 import com.android.lq.p2p.lili.util.Util;
 
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 
 import cn.bingoogolapple.androidcommon.adapter.BGAOnItemChildClickListener;
 import cn.bingoogolapple.androidcommon.adapter.BGAOnRVItemClickListener;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by a on 2016/12/28.
@@ -46,8 +48,10 @@ public class AddNewFeaturesActivity extends BaseActivity{
     private int[] accountImageId = new int[]{R.mipmap.zhanghuxinxi_selected,R.mipmap.zijinjilu,R.mipmap.chongzhi_selected,R.mipmap.tixian_selected,R.mipmap.cal,R.mipmap.zhanghuanquan};
     private int[] accountSelectImageId = new int[]{R.mipmap.zhanghuxinxi_selected,R.mipmap.zijinjilu_selected,R.mipmap.chongzhi_selected,R.mipmap.tixian_selected,R.mipmap.cal_selected,R.mipmap.zhanghuanquan_selected};
 
+
     private ArrayList<InvestGirdModel> financingList = new ArrayList<>();
     private ArrayList<InvestGirdModel> accountList = new ArrayList<>();
+
 
 
     @Override
@@ -131,8 +135,6 @@ public class AddNewFeaturesActivity extends BaseActivity{
                         break;
 
                 }
-
-
             }
         });
 
@@ -194,9 +196,17 @@ public class AddNewFeaturesActivity extends BaseActivity{
 
         financingAdapter = new AddNewFeatuersAdapter(recyclerView1,itemWidth,"");
         accountAdapter = new AddNewFeatuersAdapter(recyclerView2,itemWidth,Constants.RECYCLERVIEWADPTER_TYPE);
-
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().post(new AddNewFeaturesModel());
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+    }
 }
